@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<html ng-app="recipeAssistant">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>SOMMELIER</title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="css/index.css" rel="stylesheet">
+        <link href="css/results.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+                function clickAdd(curname) {
+                    $.post("https://kzhe8vy1yd.execute-api.us-east-1.amazonaws.com/prod/TaskWS", JSON.stringify({
+
+                        "type": "POST", 
+                        "data": {
+                            "TableName": "WineFoodShopping",
+                            //New item information to be posted 
+                            "Item": {
+                                "Item": String(curname.id),
+
+                                }}}), 
+                    function(data, status){
+                    alert(status);
+                    });
+                    // console.log("???")
+
+                    // console.log(curname.id)
+
+                    document.getElementById(curname.id).innerText = 'ADDED TO CART!'
+
+
+
+
+                }
+
+
+
+
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                var $landing = $("#landing"),
+                    $actual  = $("#actual");
+                $landing.on("click", function (){                
+                    $(this).addClass("clicked");
+                })
+             });
+
+            $(document).ready(function(){
+                var list = document.getElementById('cart');
+                list.setAttribute('data-toggle', 'modal');
+                list.setAttribute('data-target', '#listModal');
+
+                $.get("https://kzhe8vy1yd.execute-api.us-east-1.amazonaws.com/prod/TaskWS?TableName=WineFoodShopping", function(data){
+                    var db = JSON.stringify(data);
+
+                    var parse = JSON.parse(db);
+                    var recipeList = parse.Items;
+
+                    var sh_list = document.getElementById('sh_list');
+                    for (i = 0; i < recipeList.length; i++) {
+
+                        var label= document.createElement("hellogg");
+                        var item = document.createTextNode(" " + recipeList[i].Item);
+                        var checkbox = document.createElement('input');
+                        checkbox.setAttribute('type', 'checkbox');
+                        label.appendChild(checkbox);
+                        label.appendChild(item);
+                        document.getElementById('sh_list').appendChild(label);
+                        document.getElementById('sh_list').appendChild(document.createElement("br"));
+                    }
+                });
+
+                var button = document.getElementById('button');
+                button.setAttribute('data-toggle', 'modal');
+                button.setAttribute('data-target', '#resModal');
+
+            // $('.modal-content').addEventListener('click', function() {})
+                // Hardcoded
+                
+
+
+                // elements[0].addEventListener('click', function() {
+                //     if ( $('#rc0').height() != 148) {
+                //         console.log($('#rc0').height());
+                //         $('#rc0').animate({ height: 150 }, animationSpeed );
+                //         $('#result-img-container0').animate({ height: 150 }, animationSpeed );
+                //     } else {
+                //         console.log("hello");
+                //         $('#rc0').animate({ height: 225 }, animationSpeed );
+                //         $('#result-img-container0').animate({ height: 224 }, animationSpeed );
+                //     }
+                // });
+                // elements[1].addEventListener('click', function() {
+                //     if ( $('#rc1').height() != 148) {
+                //         console.log($('#rc1').height());
+                //         $('#rc1').animate({ height: 150 }, animationSpeed );
+                //         $('#result-img-container1').animate({ height: 150 }, animationSpeed );
+                //     } else {
+                //         console.log("hello");
+                //         $('#rc1').animate({ height: 225 }, animationSpeed );
+                //         $('#result-img-container1').animate({ height: 224 }, animationSpeed );
+                //     }
+                // });
+                // elements[2].addEventListener('click', function() {
+                //     if ( $('#rc2').height() != 148) {
+                //         console.log($('#rc2').height());
+                //         $('#rc2').animate({ height: 150 }, animationSpeed );
+                //         $('#result-img-container2').animate({ height: 150 }, animationSpeed );
+                //     } else {
+                //         console.log("hello");
+                //         $('#rc2').animate({ height: 225 }, animationSpeed );
+                //         $('#result-img-container2').animate({ height: 224 }, animationSpeed );
+                //     }
+                // });
+
+                // $('.cart').click(function() {
+                //     $.post("https://kzhe8vy1yd.execute-api.us-east-1.amazonaws.com/prod/TaskWS", JSON.stringify({
+
+                //         "type": "POST", 
+                //         "data": {
+                //             "TableName": "WineFoodShopping",
+                //             //New item information to be posted 
+                //             "Item": {
+                //                 "Item": "CS160", 
+                //                 }}}), 
+                //     function(data, status){
+                //          alert(status);
+                //     });
+                //     this.innerText = "ADDED TO CART";
+                // });
+
+                // for(var i = 0; i < 3; i++) {
+                //     elements[i].addEventListener('click', function() {
+                //         if ( $('#rc' + i).height() != 148) {
+                //             console.log($('#rc' + i).height());
+                //             $('#rc' + i).animate({ height: 150 }, 1000 );
+                //             $('#result-img-container' + i).animate({ height: 150 }, 1000 );
+                //         } else {
+                //             console.log("hello");
+                //             $('#rc' + i).animate({ height: 225 }, 1000 );
+                //             $('#result-img-container' + i).animate({ height: 224 }, 1000 );
+                //         }                      
+                //     });
+                // }
+
+
+                // $('label').click(function() {
+                //     if ( $('.result-container').height() != 148) {
+                //         console.log($('.result-container').height());
+                //         $('.result-container').animate({ height: 150 }, 1000 );
+                //         $('#result-img-container').animate({ height: 150 }, 1000 );
+                //     } else {
+                //         console.log("hello");
+                //         $('.result-container').animate({ height: 225 }, 1000 );
+                //         $('#result-img-container').animate({ height: 224 }, 1000 );
+                //     }
+                // });
+            });
+        </script>
+        <script>
+        var gg;
+
+        // This function returns a tuple containing the pairing info
+        // which is (Pair1Name, Pair1Image, Pair1Info)
+        function findPairingInfo(pName, resList) {
+
+
+            $.post("https://kzhe8vy1yd.execute-api.us-east-1.amazonaws.com/prod/TaskWS", JSON.stringify({
+            "type": "QUERY",
+            "data": {
+                "TableName": "WineFood",
+                //Condition for item
+                "FilterExpression": "#y = :y",
+                //Variable for attribute name (think of key). You have to preface the variables with #
+                "ExpressionAttributeNames": {
+                    "#y": "Item",
+                },
+                //Variable for value to attribute. You have to preface the variables with :
+                "ExpressionAttributeValues": {
+                    ":y": pName
+                }
+            }
+
+            }),
+            //success callback
+            function(data, status) {
+                var data = JSON.parse(JSON.stringify(data))["Items"][0];
+                if (data == null) {
+                    return null;
+                }else if (data.length != 0) {
+                    var rName = data["Item"];
+                    var rImage = data["Picture"];
+                    var rInfo = data["Info"];
+                    console.log('good');     
+                    resList.push({'name': rName, 'image': rImage, 'info': rInfo});
+                } else {
+                    return null;
+                }
+
+
+
+            }).fail(function(res) {
+                console.log(res)
+            })
+        }
+
+        function clickSearch() {
+            
+
+            var searchName = document.getElementById("bar").value.toLowerCase();
+            // console.log('gg');
+            // console.log(searchName);
+            var pList = "";
+            var resList = [];
+            var targetName;
+            var targetImage;
+            var targetInfo;
+            var pairings;
+            $.post("https://kzhe8vy1yd.execute-api.us-east-1.amazonaws.com/prod/TaskWS", JSON.stringify({
+                "type": "QUERY",
+                "data": {
+                    "TableName": "WineFood",
+                    //Condition for item
+                    "FilterExpression": "#y = :y",
+                    //Variable for attribute name (think of key). You have to preface the variables with #
+                    "ExpressionAttributeNames": {
+                        "#y": "Item",
+                    },
+                    //Variable for value to attribute. You have to preface the variables with :
+                    "ExpressionAttributeValues": {
+                        ":y": searchName.toLowerCase()
+                    }
+                }
+            }),
+            //success callback
+            function(data, status) {
+                
+                var data = JSON.parse(JSON.stringify(data))["Items"][0];
+                // console.log(data);
+
+                targetName = data["Item"];
+                targetImage = data["Picture"];
+                targetInfo = data["Info"];
+                pairings = data["Pairings"];                
+                // console.log(data["Items"][0]["Item"]);
+
+                console.log('targetName:' + targetName);
+                console.log('targetImage:' + targetImage);
+                console.log('targetInfo:' + targetInfo);
+                // console.log(pairings);
+                // var targ
+
+
+                pList = pairings.split(", ");
+                // console.log(pList)
+
+                for (i=0; i<pList.length; i++) {
+                    var pName = pList[i];
+                    $.post("https://kzhe8vy1yd.execute-api.us-east-1.amazonaws.com/prod/TaskWS", JSON.stringify({
+                        "type": "QUERY",
+                        "data": {
+                            "TableName": "WineFood",
+                            //Condition for item
+                            "FilterExpression": "#y = :y",
+                            //Variable for attribute name (think of key). You have to preface the variables with #
+                            "ExpressionAttributeNames": {
+                                "#y": "Item",
+                            },
+                            //Variable for value to attribute. You have to preface the variables with :
+                            "ExpressionAttributeValues": {
+                                ":y": pName
+                            }
+                        }
+
+                        }),
+                        //success callback
+                        function(data, status) {
+                            var data = JSON.parse(JSON.stringify(data))["Items"][0];
+                            if (data == null) {
+                                return null;
+                            }else if (data.length != 0) {
+                                var rName = data["Item"];
+                                var rImage = data["Picture"];
+                                var rInfo = data["Info"];
+                                console.log('good');     
+                                resList.push({'name': rName, 'image': rImage, 'info': rInfo});
+                            } else {
+                                return null;
+                            }
+
+
+
+                        }).fail(function(res) {
+                            console.log(res)
+                        })
+                }
+                // resList = resList.slice(1, resList.length);
+                console.log(resList);
+                console.log("targetName");
+                console.log(targetName);
+
+
+
+                // Alan's code start here: to fill the content into the box
+                // variable targetName: the name string of our search
+                // varablle targetImage: the picture link of our search
+                // varaible targetInfo: the description of our search
+                // varaible resList: a list of tuples [(Pair1Name, Pair1Image, Pair1Info), (Pair2Name, Pair2Image, Pair2Info) ...]
+                // ***Special Note*** Because of javascript issue, the actual content of the resList start from index 1 instead of index 0
+
+            }).fail(function(res) {
+                console.log(res)
+            })
+            
+
+            setTimeout(function(){
+                console.log("hello");
+                console.log(resList.length);
+
+
+                var modal = document.getElementById('results_list');
+                modal.innerHTML = "";
+
+                var title = document.getElementById('results-title');
+                title.innerText = targetName.charAt(0).toUpperCase() + targetName.slice(1).toLowerCase(); // only first letter capital
+
+                for (var i = 0; i < resList.length; i++) {
+                    // results container 
+                    var container = document.createElement('div');
+                    container.setAttribute('class', 'result-container');
+                    var id = 'rc' + i.toString();
+                    container.setAttribute('id', id);
+
+                    // img container
+                    var imgContainer = document.createElement('div');
+                    imgContainer.setAttribute('class','result-contents');
+                    var img_id = 'result-img-container' + i.toString();
+                    imgContainer.setAttribute('id', img_id);
+                    // image
+                    var image = document.createElement('img');
+                    image.setAttribute('id','result-img');
+                    image.setAttribute('src',resList[i]['image']);
+                    imgContainer.appendChild(image);
+                    container.appendChild(imgContainer);
+
+                    // result contents
+                    var descripContainer = document.createElement('div');
+                    descripContainer.setAttribute('class','result-contents');
+                    descripContainer.setAttribute('id', 'result-descrip-container');
+                    // h4
+                    var header = document.createElement('h4');
+                    header.setAttribute('id','result-descrip');
+                    header.innerText = resList[i]['name'];
+                    descripContainer.appendChild(header);
+                    // input
+                    var input = document.createElement('input');
+                    input.setAttribute('class','toggles');
+                    var input_id = 'toggle' + i.toString();
+                    input.setAttribute('id',input_id);
+                    input.setAttribute('type','checkbox');
+                    input.checked = false;
+                    descripContainer.appendChild(input);
+                    // label
+                    var label = document.createElement('label');
+                    label.setAttribute('for',input_id);
+                    label.innerText = ' Details';
+                    descripContainer.appendChild(label);
+
+                    // expansions div
+                    var expansions = document.createElement('div');
+                    expansions.setAttribute('class','expansions');
+                    var exp_id = 'expand' + i.toString();
+                    expansions.setAttribute('id',exp_id);
+                    // cart
+                    var cart_p = document.createElement('p');
+                    var link = document.createElement('a');
+                    link.setAttribute('class','cart');
+                    link.setAttribute('href','#');
+                    link.setAttribute('id', resList[i]['name'])
+                    link.innerText = 'ADD TO CART';
+
+
+
+                    link.setAttribute('onclick', 'clickAdd(' + String(resList[i]['name']) + ')');
+
+                    cart_p.appendChild(link);
+                    // descrip
+                    var descrip = document.createElement('p');
+                    descrip.innerText = resList[i]['info'];
+                    
+                    expansions.appendChild(cart_p);
+                    expansions.appendChild(descrip);
+                    descripContainer.appendChild(expansions);
+                    container.appendChild(descripContainer);
+                    modal.appendChild(container);
+                }
+                var elements = document.getElementsByTagName('label');
+                var animationSpeed = 500;
+
+
+                var rc = '#rc';
+                var r_container = '#result-img-container';
+
+                var count = document.getElementById('results_list').childElementCount;
+                for (var k=0; k < count; k++) {
+                    (function() {
+                        var curRC = rc + k.toString();
+                        var cur_container = r_container + k.toString();
+                        console.log(cur_container);
+                        elements[k].addEventListener('click', function() {
+                            if ( $(curRC).height() != 148) {
+                                $(curRC).animate({ height: 150 }, animationSpeed );
+                                $(cur_container).animate({ height: 150 }, animationSpeed );
+                            } else {
+                                $(curRC).animate({ height: 225 }, animationSpeed );
+                                $(cur_container).animate({ height: 224 }, animationSpeed );
+                            }
+                        })
+
+
+                    }());
+
+                }
+            }, 1000)
+
+            
+            
+          
+
+        }
+
+
+
+
+
+
+        </script>
+    </head>
+
+    <body>
+        <div class="site-wrapper">
+            <div id="listModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content", id='modal-content'>
+                        <div class="modal-header">
+                            <h3 class="modal-title">SHOPPING LIST</h3>
+                        </div>
+                        <div class="modal-body" id="sh_list_cont">
+                            <div id="sh_list"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline-primary" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="resModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="results-title"></h3>
+                        </div>
+                        <div class="modal-body" id="results_list">
+                            
+
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline-primary" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div id="actual">
+                    <div id="navbar">
+                        <span class="glyphicon glyphicon-shopping-cart" id="cart"></span>
+                        <a href="add.html"><span class="glyphicon glyphicon-plus" id="add"></span></a>
+                        <h2>SOMMELIER</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="center-page">
+                            <div  id="search" align="center">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="search" placeholder="searching..." id="bar">
+                                    <span class="input-group-btn"><button class="btn btn-default" id="button" type="submit" onclick="clickSearch()">SEARCH</button></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12" id="pop_name">>>> POPULAR PAIRINGS <<<</div>
+                    </div>
+
+                    <div class="row" id="popular">
+                        <div class="col-sm-2">
+                            <div class="tile" id="one">
+                                <div class="filter">
+                                    <p>steak<br />
+                                    +<br />
+                                    cabernet sauvignon<br /></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tile" id="two">
+                                <div class="filter">
+                                    halibut<br />
+                                    +<br />
+                                    chardonnay<br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tile" id="three">
+                                <div class="filter">
+                                    crab<br />
+                                    +<br />
+                                    pinot noir<br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tile" id="four">
+                                <div class="filter">
+                                    lamb<br />
+                                    +<br />
+                                    sauvignon blanc<br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tile" id="five">
+                                <div class="filter">
+                                    shrimp<br />
+                                    +<br />
+                                    vinho verde<br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tile" id="six">
+                                <div class="filter">
+                                    duck<br />
+                                    +<br />
+                                    beaujolais<br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="footer">© TEAM SANS. CS160 SPRING 2017. ALL RIGHTS RESERVED.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="landing">
+                    <div class="row" id="logo">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8" id="title">
+                            <h1>SOM<br />
+                                MEL<br />
+                                IER
+                            </h1>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div>                
+
+            </div>
+        </div>
+    </body>
+</html>

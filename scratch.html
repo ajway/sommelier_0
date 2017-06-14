@@ -1,0 +1,83 @@
+<div class="result-container" id="rc0">
+    <div class="result-contents" id="result-img-container0">
+        <img id="result-img" src="http://biltmore.s3.amazonaws.com/1254/biltmoreestate-cabsauv.jpg"/>
+    </div>
+    <div class="result-contents" id="result-descrip-container">
+            <h4 id="result-descrip">Cabernet Sauvignon</h4>
+            <input class="toggles" id="toggle0" type="checkbox" unchecked>
+            <label for="toggle0"> Details</label>
+            <div class="expansions" id="expand0">
+                <p><a class="cart" href="#">ADD TO CART</a></p>
+                <p>Cabernet Sauvignon is a full-bodied wine with dark fruit flavors and savory tastes akin to peppers.</p>
+            </div>
+    </div>
+</div>
+
+<script>            
+ var title = document.getElementById('results-title');
+                title.innerText = targetName.charAt(0).toUpperCase() + targetName.slice(1).toLowerCase(); // only first letter capital
+
+                for (var i = 0; i < resList.length; i++) {
+                    // results container 
+                    var container = document.createElement('div');
+                    container.setAttribute('class', 'result-container');
+                    var id = 'rc' + i.toString();
+                    container.setAttribute('id', id);
+
+                    // img container
+                    var imgContainer = document.createElement('div');
+                    imgContainer.setAttribute('class','result-contents');
+                    var img_id = 'result-img-container' + i.toString();
+                    imgContainer.setAttribute('id', img_id);
+                    // image
+                    var image = document.createElement('img');
+                    image.setAttribute('id','result-img');
+                    image.setAttribute('src',resList[i]['image']);
+                    imgContainer.appendChild(image);
+                    container.appendChild(imgContainer);
+
+                    // result contents
+                    var descripContainer = document.createElement('div');
+                    descripContainer.setAttribute('class','result-contents');
+                    descripContainer.setAttribute('id', 'result-descrip-container');
+                    // h4
+                    var header = document.createElement('h4');
+                    header.setAttribute('id','result-descrip');
+                    header.innerText = resList[i]['name'];
+                    descripContainer.appendChild(header);
+                    // input
+                    var input = document.createElement('input');
+                    input.setAttribute('class','toggles');
+                    input.setAttribute('id','toggle0');
+                    input.setAttribute('type','checkbox');
+                    input.checked = false;
+                    descripContainer.appendChild(input);
+                    // label
+                    var label = document.createElement('label');
+                    label.setAttribute('for','toggle0');
+                    label.innerText = ' Details';
+                    descripContainer.appendChild(label);
+
+                    // expansions div
+                    var expansions = document.createElement('div');
+                    expansions.setAttribute('class','expansions');
+                    var exp_id = 'expand' + i.toString();
+                    expansions.setAttribute('id',exp_id);
+                    // cart
+                    var cart_p = document.createElement('p');
+                    var link = document.createElement('a');
+                    link.setAttribute('class','cart');
+                    link.setAttribute('href','#');
+                    link.innerText = 'ADD TO CART';
+                    cart_p.appendChild(link);
+                    // descrip
+                    var descrip = document.createElement('p');
+                    descrip.innerText = resList[i]['info'];
+                    
+                    expansions.appendChild(cart_p);
+                    expansions.appendChild(descrip);
+                    descripContainer.appendChild(expansions);
+
+
+                }
+</script>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<html ng-app="recipeAssistant">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Shopping Cart</title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="css/add.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+        <script>
+
+        $(document).ready(function(){
+          $("#submit").click(function(){
+            var recipeName = document.getElementById('Rname').value;
+            var imageLink = document.getElementById('url').value;
+
+            if (recipeName.length == 0) {
+              alert("Please provide a recipe name.");
+              return;
+            }
+
+            if (imageLink.length == 0) {
+              alert("Please provide an image url.");
+              return;
+            }
+
+            var ingre_list = document.getElementsByClassName('form-ing');
+
+            var tmps = ""
+            for (j = 0; j < ingre_list.length; j++) {
+              var curIngre = ingre_list[j].value;
+              if (curIngre.length != 0) {
+                if (j == ingre_list.length - 1) {
+                  tmps = tmps + curIngre;
+                } else {
+                  tmps = tmps + curIngre + "\n";
+                }
+              }
+            }
+
+            if (tmps.length == 0) {
+              console.log(tmps);
+              alert("Please provide at least one ingredient.");
+              return;
+            }
+
+            // var direc_list = document.getElementsById('direcs').value;
+            // var dirs = document.getElementById('direcs').value;
+
+            // for (i = 0; i < direc_list.length; i++) {
+            //   var curDirec = direc_list[i].value;
+
+            //   if (curDirec.length != 0) {
+            //     if (i == direc_list.length - 1) {
+            //       dirs = dirs + (i+1) + ". " + curDirec;
+            //     }
+            //     else {
+            //       dirs = dirs + (i+1) + ". " + curDirec + "\n";
+            //     }
+            //   }
+            // }
+
+            // if (dirs.length == 0) {
+            //   alert("Please provide at least one direction.");
+            //   return;
+            // }
+
+
+            var info = document.getElementById('info').value;
+            var type = document.getElementById('type').value;
+            // console.log(recipeName);
+            // console.log(imageLink);
+            // console.log(info);
+            // console.log(tmps);
+            // console.log(dirs);
+            // console.log(type);
+
+
+            console.log(recipeName);
+            console.log(imageLink);
+            console.log(type);
+            console.log(info);
+            console.log(tmps);
+
+            // String lower = (String) recipeName
+            // https://kzhe8vy1yd.execute-api.us-east-1.amazonaws.com/prod/TaskWS?TableName=Recipes
+            // https://kzhe8vy1yd.execute-api.us-east-1.amazonaws.com/prod/RecipeUpdate
+            // https://kzhe8vy1yd.execute-api.us-east-1.amazonaws.com
+            $.post("https://kzhe8vy1yd.execute-api.us-east-1.amazonaws.com/prod/TaskWS", JSON.stringify({
+
+                "type": "POST", 
+                "data": {
+                    "TableName": "WineFood",
+                    //New item information to be posted 
+                    "Item": {
+                        "Item": recipeName.toLowerCase(), 
+                        "Type" : type,
+                        "Picture" : imageLink,
+                        "Info": info,
+                        "Pairings": tmps,
+                        }}}), 
+            function(data, status){
+            alert(status);
+            });
+          });
+        });
+
+
+        </script>
+
+
+    </head>
+
+    <body>
+        <div class="site-wrapper">
+            <div class="container-fluid">
+                <div id="actual">
+                    <div id="navbar">
+                        <!-- <span class="glyphicon glyphicon-shopping-cart" style="font-size:200%;color:#FCECCB"></span> -->
+                        <a href="index.html"><span class="glyphicon glyphicon-home" id="home"></span></a>
+                        <h2>SOMMELIER</h2>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-4" id="title">ADD FOOD OR WINE</div>
+                      <div class="col-sm-4"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-4">
+                        <div class="form-group">Item:
+                          <input type="text" class="form-name" id='Rname' placeholder=" Enter name">
+                        </div>
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-4">
+                        <div class="form-group">Image:  
+                          <input type="text" class="form-url" id="url" placeholder=" Enter image url">
+                        </div>
+                        <!-- <div id="img"><button type="button" class="btn btn-outline-primary">UPLOAD IMAGE</button></div> -->
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-4">
+                        <div class="form-group">Type:  
+                        <!-- <input type="text" class="form-url" id="info" placeholder="Enter comment"> -->
+                                      <select name="choice" id='type'>
+                                          <option value="food">food</option>
+                                          <option value="wine">wine</option>
+                                      </select>
+                        </div>
+                        <!-- <div id="img"><button type="button" class="btn btn-outline-primary">UPLOAD IMAGE</button></div> -->
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-4">
+                        <div class="form-group">Info:  
+                          <input type="text" class="form-url" id="info" placeholder=" Enter one-sentence description">
+                        </div>
+                        <!-- <div id="img"><button type="button" class="btn btn-outline-primary">UPLOAD IMAGE</button></div> -->
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-4">
+                        <div class="form-group" id='ilist2'>Pairings:  
+                        <input type="text" class="form-ing" id="ingres" placeholder=" Enter items separated by commas">
+                        </div>
+
+                        <!-- <button id='addi' onclick='addI()' class="btn btn-outline-primary">ADD INGREDIENT</button> -->
+
+                        <script >
+                          // function addI() {
+                          //   var mi = document.createElement("input");
+                          //   mi.setAttribute('class', 'form-ing');
+                          //   mi.setAttribute('type', 'text');
+                          //   mi.setAttribute('placeholder', 'Enter ingredient');
+                          //   document.getElementById('ilist2').appendChild(mi);
+                          // }
+                        </script>
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-4">
+  <!--                       <div class="form-group" id='dlist2'>Pairing Image Link:  
+                        <input type="text" class="form-inst" id="direcs" placeholder="Enter Pairing Image Link">
+                        </div>
+   -->
+                        <!-- <button id='addd' onclick='addD()' class="btn btn-outline-primary">ADD INSTRUCTION</button> -->
+
+                        <script >
+                          // function addD() {
+                          //   var mi = document.createElement("input");
+                          //   mi.setAttribute('class', 'form-inst');
+                          //   mi.setAttribute('type', 'text');
+                          //   mi.setAttribute('placeholder', 'Enter instruction');
+                          //   document.getElementById('dlist2').appendChild(mi);
+                          // }
+                        </script>
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-4"></div>
+                      <div class="col-sm-4">
+                        <button type="submit" id="submit" class="btn btn-outline-primary">SUBMIT</button>
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="footer">© TEAM SANS. CS160 SPRING 2017. ALL RIGHTS RESERVED.</div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

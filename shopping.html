@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<html ng-app="recipeAssistant">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Shopping Cart</title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="css/index.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+        <script>
+
+
+        $(document).ready(function(){
+            $.get("https://kzhe8vy1yd.execute-api.us-east-1.amazonaws.com/prod/TaskWS?TableName=WineFoodShopping", function(data){
+                var db = JSON.stringify(data);
+
+                var parse = JSON.parse(db);
+                var recipeList = parse.Items;
+
+                var sh_list = document.getElementById('sh_list');
+                for (i = 0; i < recipeList.length; i++) {
+
+                    var label= document.createElement("label");
+                    var item = document.createTextNode(" " + recipeList[i].Item);
+                    var checkbox = document.createElement('input');
+                    checkbox.setAttribute('type', 'checkbox');
+                    label.appendChild(checkbox);
+                    label.appendChild(item);
+                    document.getElementById('sh_list').appendChild(label);
+                    document.getElementById('sh_list').appendChild(document.createElement("br"));
+                }
+              });
+            });
+
+
+        </script>
+
+
+    </head>
+
+    <body>
+        <div class="site-wrapper">
+            <div class="container-fluid">
+                <div id="actual">
+                    <div id="navbar">
+                        <span class="glyphicon glyphicon-home" style="font-size:200%;color:#FCECCB"></span>
+                        <h2>SOMMELIER</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <div  id="search" align="center"></div>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div>
+
+
+            <div>
+                <h3>Shopping List</h3>
+            </div>
+
+            <div class="modal-body" id="sh_list" style='margin-top:20%; text-align:left' align='center'>
+              <!-- sample layout -->
+              <!-- <p id="in_content"></p> -->
+              <!-- <input type="checkbox">sample ingredient</input> <br /> -->
+              <!-- <input type="checkbox"> sample ingredient<br /> -->
+              <!-- <input type="checkbox"> sample ingredient<br /> -->
+            </div>         
+
+            </div>
+        </div>
+    </body>
+</html>

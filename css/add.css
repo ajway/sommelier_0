@@ -1,0 +1,88 @@
+#actual {
+/*	background-color: #FCECCB;
+*/	background-image: url(http://i.imgur.com/nFu4PHk.gif);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	position: fixed;
+    left: 0px;
+    min-width: 100%;
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#navbar {
+	width: 100%;
+	height: 75px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba(252, 236, 203, 0.75);
+	display: inline-block;
+/*	border-bottom: 1px solid;
+	border-color: #4D0013;*/
+}
+
+.glyphicon {
+	margin: 25px 10px 25px 10px;
+	float: left;
+	color: #4D0013;
+	font-size:150%;
+}
+
+.glyphicon:hover {
+	color: #FCECCB;
+	cursor: pointer;
+}
+
+h2 {
+/*	color: #FCECCB;
+*/	color: #4D0013; 
+	font-family: 'Gruppo', sans-serif;
+	font-size: 300%;
+	text-align: center;
+	float: right;
+	margin: 15px 10px 15px 15px;
+}
+
+.row {
+	font-family: 'Gruppo', sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #4D0013;
+}
+
+#title {
+	margin: 100px 0 20px 0;
+	font-size: 32px;
+	text-align: center;
+}
+
+input {
+	width: 100%;
+	border-radius: 5px;
+	border: none;
+}
+
+.btn {
+	background-color: #4D0013;
+	color: #FCECCB;
+	font-family: 'Gruppo', sans-serif;
+	float: right;
+}
+
+.btn:hover {
+	background-color: #FCECCB;
+	color: #4D0013;
+}
+
+#footer {
+	color: #a8818a;
+	font-size: 12px;
+	font-family: 'Gruppo', sans-serif;
+	bottom: 0;
+	position: fixed;
+	margin-left: 35%;
+}

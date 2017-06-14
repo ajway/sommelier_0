@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<html ng-app="recipeAssistant">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>SOMMELIER</title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="css/results.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript">
+            $(function () {
+                var $landing = $("#landing"),
+                    $actual  = $("#actual");
+                $landing.on("click", function (){                
+                    $(this).addClass("clicked");
+                })
+             });
+            $(document).ready(function(){
+                var button = document.getElementById('button');
+                button.setAttribute('data-toggle', 'modal');
+                button.setAttribute('data-target', '#ingModal');
+
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('label').click(function() {
+                    if ( $('.result-container').height() != 148) {
+                        console.log($('.result-container').height());
+                        $('.result-container').animate({ height: 150 }, 1000 );
+                        $('#result-img-container').animate({ height: 150 }, 1000 );
+                    } else {
+                        console.log("long ass bitch");
+                        $('.result-container').animate({ height: 225 }, 1000 );
+                        $('#result-img-container').animate({ height: 224 }, 1000 );
+                    }
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="site-wrapper">
+            <button id="button"> 
+                search
+            </button>
+        </div>
+        <div id="ingModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Steak</h2>
+                    </div>
+                    <div class="modal-body" id="results_list">
+                        <div class="result-container">
+                            <div class="result-contents" id="result-img-container">
+                                <img id="result-img" src="http://biltmore.s3.amazonaws.com/1254/biltmoreestate-cabsauv.jpg"/>
+                            </div>
+                            <div class="result-contents" id="result-descrip-container">
+                                <h1 id="result-descrip">Cabernet Sauvignon</h1>
+                                <input id="toggle" type="checkbox" unchecked>
+                                <label for="toggle">Details</label>
+                                <div id="expand">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta non turpis faucibus lobortis. Curabitur non eros rutrum, gravida felis non, luctus velit.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <section>
+                            <div class="result-container">
+                                <div class="result-contents" id="result-img-container">
+                                    <img id="result-img" src="http://www.line39wines.com/media/8169/L39_PinotNoir_NV-HR.png"/>
+                                </div>
+                                <div class="result-contents" id="result-descrip-container">
+                                    <h1 id="result-descrip">Pinot Noir</h1>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- <div class="result-container">
+                            <div class="result-contents" id="result-img-container">
+                                <img id="result-img" src="http://ei.isnooth.com/multimedia/0/5/c/image_94965.jpeg"/>
+                            </div>
+                            <div class="result-contents" id="result-descrip-container">
+                                <h1 id="result-descrip">Chardonnay</h1>
+                            </div>
+                        </div>
+
+                        <div class="result-container">
+                            <div class="result-contents" id="result-img-container">
+                                <img id="result-img" src="http://www.redwoodcreek.com/resources/images/wines/white/detail/grigio.png"/>
+                            </div>
+                            <div class="result-contents" id="result-descrip-container">
+                                <h1 id="result-descrip">Pinot Grigio</h1>
+                            </div>
+                        </div> -->
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-primary" data-dismiss="modal">CLOSE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
